@@ -8,7 +8,7 @@ SECRET_KEY = 'django-insecure-772!zqjr_bq5c2il=a^wmutyzf4o9y67bm554ej4j(ca(bnlp^
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['levelking-web.onrender.com']
 
 
 # Application definition
@@ -64,8 +64,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'levelking_db',
+        'USER': 'levelking_user',
+        'PASSWORD': 'levelking_pass',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
@@ -109,5 +113,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
