@@ -1,17 +1,17 @@
-# Віртуальне середовище (Python environment)
-.venv/
-
-# Кеш-файли Python
 __pycache__/
 *.pyc
 *.pyo
-*.pyd
 
-# Файл, який створює macOS в кожній папці
-.DS_Store
+db.sqlite3
+staticfiles/
 
-# Тимчасові/генеровані файли гри
-output/
+.idea/
 
-# Усі бази даних .db крім головної
-*.db
+.env
+.venv/
+.env.example
+
+*.log
+*.bak
+
+client/saved_levels/
