@@ -6,7 +6,8 @@ COPY . /app
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-RUN python manage.py migrate
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["sh", "/app/entrypoint.sh"]
 
