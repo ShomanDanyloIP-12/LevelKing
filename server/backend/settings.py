@@ -52,6 +52,11 @@ CORS_ALLOWED_ORIGINS = [
     "https://levelking-client.onrender.com"
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://levelking-web.onrender.com",
+    "https://levelking-client.onrender.com"
+]
+
 CORS_ALLOW_HEADERS = [
     "content-type",
     "authorization",
