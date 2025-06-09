@@ -49,7 +49,7 @@ class Main:
         self.chosen_suggestion = []
         self.chosen_strlevel = []
         self.authorisation_menu = Authorisation_menu(self.switch, self.client.login, self.log_user)
-        self.authorisation_s_menu = Authorisation_s_menu(self.switch, self.client.register_user, self.log_user)
+        self.authorisation_s_menu = Authorisation_s_menu(self.switch, self.client.register_user, self.log_user, self.client.login)
         self.server_menu = Server_menu(self.switch, self.get_public_levels_by_author, self.decide_chosen_level,
                                        self.decide_chosen_level_local)
         self.delete_user_menu = Delete_user_menu(self.switch, self.delete_own)

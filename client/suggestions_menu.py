@@ -1,7 +1,6 @@
 import pygame, sys
 from pygame.mouse import get_pos as mouse_pos
 from pygame.image import load
-import pickle
 from os import path
 from f_read import *
 

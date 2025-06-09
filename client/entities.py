@@ -384,7 +384,7 @@ class Player(EntityBase):
 			self.speed = 150
 			self.gravity = 2
 		elif flipper == False:
-			self.speed = 300
+			self.speed = 400
 			self.gravity = 4
 
 	def set_drowning(self, flipper):

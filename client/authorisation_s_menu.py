@@ -8,7 +8,7 @@ script_directory = path.dirname(path.realpath(__file__))
 
 
 class Authorisation_s_menu:
-    def __init__(self, switch, register_user, log_user):
+    def __init__(self, switch, register_user, log_user, login):
         self.display_surface = pygame.display.get_surface()
         self.image_background = load(path.join(script_directory, 'graphics', 'menus', 'main_menu', 'background.png')).convert_alpha()
         window_size = self.display_surface.get_size()
@@ -16,6 +16,7 @@ class Authorisation_s_menu:
         self.switch = switch
         self.register_user = register_user
         self.log_user = log_user
+        self.login = login
         self.buttons = Buttons_ams()
         self.input_fields = InputField()
         self.switch_locker = True
@@ -50,6 +51,7 @@ class Authorisation_s_menu:
                 mouse_pos()) and self.switch_locker == True:
             if self.register_user(self.input_fields.get_login(), self.input_fields.get_password()):
                 self.switch_locker = False
+                self.login(self.input_fields.get_login(), self.input_fields.get_password())
                 self.log_user()
                 self.switch({'from': 'authorisation_s_menu', 'to': 'server_menu'})
             else:

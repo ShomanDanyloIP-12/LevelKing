@@ -59,7 +59,7 @@ class Public_levels_menu:
             self.switch({'from': 'public_levels_menu', 'to': 'server_menu'})
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttons.r_rect.collidepoint(
                 mouse_pos()) and self.switch_locker:
-            levels = self.get_public_levels
+            levels = self.get_public_levels()
             print(levels)
             if isinstance(levels, list):
                 self.level_list.update_items(levels)
