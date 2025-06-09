@@ -48,6 +48,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'backend.urls'
 
 CORS_ALLOWED_ORIGINS = [
+    "https://levelking-web.onrender.com",
     "https://levelking-client.onrender.com"
 ]
 
