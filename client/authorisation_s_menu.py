@@ -62,6 +62,20 @@ class Authorisation_s_menu:
                 mouse_pos()) and self.switch_locker == True:
             self.switch_locker = False
             self.switch({'from': 'authorisation_s_menu', 'to': 'authorisation_menu'})
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_v and pygame.key.get_mods() & pygame.KMOD_CTRL:
+                clip_text = pygame.scrap.get(pygame.SCRAP_TEXT)
+                if clip_text:
+                    try:
+                        buffer = clip_text.decode('utf-8', errors='ignore')
+                        buffer = ''.join(ch for ch in buffer if ch.isprintable()).split('\x00')[0].strip()
+                        if self.input_fields.login_active:
+                            self.input_fields.login_text = buffer
+                        elif self.input_fields.password_active:
+                            self.input_fields.password_text = buffer
+
+                    except UnicodeDecodeError:
+                        pass
 
 
 class InputField:

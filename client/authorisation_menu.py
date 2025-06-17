@@ -13,6 +13,7 @@ class Authorisation_menu:
         self.image_background = load(path.join(script_directory, 'graphics', 'menus', 'main_menu', 'background.png')).convert_alpha()
         window_size = self.display_surface.get_size()
         self.image_background = pygame.transform.scale(self.image_background, window_size)
+        pygame.scrap.init()
         self.switch = switch
         self.login = login
         self.log_user = log_user
@@ -58,6 +59,20 @@ class Authorisation_menu:
             else:
                 self.input_fields.login_text = 'Invalid 401'
                 self.input_fields.login_txt_surface = self.input_fields.font.render(self.input_fields.login_text, True, '#33323d')
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_v and pygame.key.get_mods() & pygame.KMOD_CTRL:
+                clip_text = pygame.scrap.get(pygame.SCRAP_TEXT)
+                if clip_text:
+                    try:
+                        buffer = clip_text.decode('utf-8', errors='ignore')
+                        buffer = ''.join(ch for ch in buffer if ch.isprintable()).split('\x00')[0].strip()
+                        if self.input_fields.login_active:
+                            self.input_fields.login_text = buffer
+                        elif self.input_fields.password_active:
+                            self.input_fields.password_text = buffer
+
+                    except UnicodeDecodeError:
+                        pass
 
 
 
@@ -123,13 +138,13 @@ class InputField:
             if self.login_active:
                 if event.key == pygame.K_BACKSPACE:
                     self.login_text = self.login_text[:-1]
-                elif len(self.login_text) < self.max_length:
+                elif len(self.login_text) < self.max_length and event.unicode.isprintable():
                     self.login_text += event.unicode
                 self.login_txt_surface = self.font.render(self.login_text, True, '#33323d')
             elif self.password_active:
                 if event.key == pygame.K_BACKSPACE:
                     self.password_text = self.password_text[:-1]
-                elif len(self.password_text) < self.max_length:
+                elif len(self.password_text) < self.max_length and event.unicode.isprintable():
                     self.password_text += event.unicode
                 self.password_txt_surface = self.font.render('*' * len(self.password_text), True, '#33323d')
 

@@ -248,7 +248,7 @@ class GameLevel:
 			if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and self.switch_locker == True:
 				self.switch_locker = False
 				self.switch({'from':  'level', 'to': f'{self.get_level_from_where()}'})
-			if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
+			if event.type == pygame.KEYDOWN and (event.key == pygame.K_p or event.key == pygame.K_LALT or event.key == pygame.K_RALT or event.key == pygame.K_LSUPER or event.key == pygame.K_RSUPER) and not self.complete and not self.player_dead():
 				if self.paused:
 					self.paused = not self.paused
 					self.after_pause_timer.activate()
@@ -325,7 +325,7 @@ class GameLevel:
 		self.after_pause_timer.update()
 		if self.player_dead():
 			self.transition()
-			self.score_menu.display(False, self.get_diamonds)
+			self.score_menu.display(False, self.get_diamonds, False, True)
 		if self.complete:
 			self.transition()
 			self.score_menu.display(True)
@@ -449,9 +449,7 @@ class Score_menu:
 		self.resume_rect_image = pygame.transform.scale(self.resume_rect_image, (sx(120), sy(46)))
 		self.font = pygame.font.Font(path.join(script_directory, 'graphics', 'ui', 'ARCADEPI.ttf'), sx(18))
 
-
-
-	def display(self, level_complete, get_diamonds = None, paused = False):
+	def display(self, level_complete, get_diamonds = None, paused = False, dead = False):
 		def sx(value):
 			return int(value * self.multiplayer_x)
 		def sy(value):
@@ -462,11 +460,17 @@ class Score_menu:
 		if level_complete:
 			self.display_surface.blit(self.image, self.tittle_rect.topleft)
 			self.display_surface.blit(self.score_rect_image, self.score_rect.topleft)
+		elif dead:
+			self.display_surface.blit(self.image_go, self.tittle_rect.topleft)
+			if get_diamonds() == 0:
+				self.display_surface.blit(self.diamonds0_image, self.score_rect.topleft)
+			elif get_diamonds() == 1:
+				self.display_surface.blit(self.diamonds1_image, self.score_rect.topleft)
+			if get_diamonds() == 2:
+				self.display_surface.blit(self.diamonds2_image, self.score_rect.topleft)
 		else:
 			if paused:
 				self.display_surface.blit(self.image_paused, self.tittle_rect.topleft)
-			else:
-				self.display_surface.blit(self.image_go, self.tittle_rect.topleft)
 			if get_diamonds() == 0:
 				self.display_surface.blit(self.diamonds0_image, self.score_rect.topleft)
 			elif get_diamonds() == 1:
