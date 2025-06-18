@@ -33,8 +33,8 @@ class Level_menu:
     def read_level(self, name):
         file_path = path.join(script_directory, 'levels', f'{name}.json')
         with open(file_path, 'rb') as file:
-            grid = pickle.load(file)
-        return grid
+            data = pickle.load(file)
+        return data[0]
 
     def menu_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttons.mm_rect.collidepoint(

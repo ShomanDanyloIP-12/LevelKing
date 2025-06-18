@@ -93,6 +93,11 @@ class ScrollableList:
         for i in range(start_index, end_index):
             item_y = self.rect.y + (i - start_index) * self.item_height
             item_rect = pygame.Rect(self.rect.x, item_y, self.rect.width, self.item_height)
+            if self.items[i].get('status') == 'accepted':
+                pygame.draw.rect(self.display_surface, pygame.Color('#AFE1AF'), item_rect)
+            elif self.items[i].get('status') == 'rejected':
+                pygame.draw.rect(self.display_surface, pygame.Color('#F88379'), item_rect)
+
 
             if item_rect.bottom > self.rect.bottom:
                 break

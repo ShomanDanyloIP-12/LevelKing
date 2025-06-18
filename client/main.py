@@ -51,7 +51,7 @@ class Main:
         self.authorisation_menu = Authorisation_menu(self.switch, self.client.login, self.log_user)
         self.authorisation_s_menu = Authorisation_s_menu(self.switch, self.client.register_user, self.log_user, self.client.login)
         self.server_menu = Server_menu(self.switch, self.get_public_levels_by_author, self.decide_chosen_level,
-                                       self.decide_chosen_level_local)
+                                       self.decide_chosen_level_local, self.clear_level_builder)
         self.delete_user_menu = Delete_user_menu(self.switch, self.delete_own)
         self.public_level_menu = Public_level_menu(self.switch, self.save_own_level, self.delete_public_level,
                                                    self.update_level_builder_grid)
@@ -207,6 +207,9 @@ class Main:
             )
         else:
             print('Bad data')
+
+    def clear_level_builder(self):
+        self.level_builder.clear_grid()
 
     def delete_public_level(self):
         level_id_to_delete = self.chosen_level.get('id')
@@ -421,6 +424,7 @@ class Main:
         elif self.replacement['to'] == 'authorisation_s_menu':
             self.authorisation_s_menu_active = True
         elif self.replacement['to'] == 'server_menu':
+            self.server_menu.public_level_list.update_items(self.client.get_public_levels_by_author(self.client.username))
             self.server_menu_active = True
         elif self.replacement['to'] == 'delete_user_menu':
             self.delete_user_menu_active = True
@@ -429,8 +433,10 @@ class Main:
         elif self.replacement['to'] == 'local_level_menu':
             self.local_level_menu_active = True
         elif self.replacement['to'] == 'suggestions_menu':
+            self.suggestions_menu.suggestions_list.update_items(self.client.view_change_requests())
             self.suggestions_menu_active = True
         elif self.replacement['to'] == 'public_levels_menu':
+            self.public_levels_menu.level_list.update_items(self.client.get_public_levels())
             self.public_levels_menu_active = True
         elif self.replacement['to'] == 'suggestion_menu':
             self.suggestion_menu_active = True

@@ -11,12 +11,13 @@ script_directory = path.dirname(path.realpath(__file__))
 
 
 class Server_menu:
-    def __init__(self, switch, get_public_levels_by_author, decide_chosen_level, decide_chosen_level_local):
+    def __init__(self, switch, get_public_levels_by_author, decide_chosen_level, decide_chosen_level_local, clear_level_builder):
         self.display_surface = pygame.display.get_surface()
         self.image_background = load(path.join(script_directory, 'graphics', 'menus', 'main_menu', 'background.png')).convert_alpha()
         window_size = self.display_surface.get_size()
         self.image_background = pygame.transform.scale(self.image_background, window_size)
         self.switch = switch
+        self.clear_level_builder = clear_level_builder
         self.get_public_levels_by_author = get_public_levels_by_author
         self.decide_chosen_level = decide_chosen_level
         self.decide_chosen_level_local = decide_chosen_level_local
@@ -79,6 +80,7 @@ class Server_menu:
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttons.b_rect.collidepoint(
                 mouse_pos()) and self.switch_locker == True:
             self.switch_locker = False
+            self.clear_level_builder()
             self.switch({'from': 'server_menu', 'to': 'main_menu'})
         if event.type == pygame.MOUSEBUTTONDOWN and self.buttons.d_rect.collidepoint(
                 mouse_pos()) and self.switch_locker == True:

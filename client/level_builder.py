@@ -164,6 +164,14 @@ class LevelBuilder:
             if entity.rect.collidepoint(mouse_pos()):
                 return entity
 
+    def clear_grid(self):
+        self.layout_elements = {}
+        self.layout_objects.empty()
+        self.foreground_object.empty()
+        self.background_object.empty()
+        self.create_player((200, self.window_size[1] / 2))
+        self.create_sky((self.window_size[0] / 2, self.window_size[1] / 2))
+
     def update_from_grid(self, coords):
         self.layout_elements = {}
         self.layout_objects.empty()
